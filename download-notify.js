@@ -1,5 +1,9 @@
 var downloads = {};
 
+browser.downloads.onCreated.addListener(function reportDownload(item) {
+    downloads[item.id] = item.filename;
+});
+
 browser.downloads.onChanged.addListener(function reportDownloadEnd(item) {
     if (item.state.current == "complete") {
         browser.notifications.create({
